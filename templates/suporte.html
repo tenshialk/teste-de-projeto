@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Suporte</h2>
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">{{ form.subject.label }} {{ form.subject(class_='form-control') }}</div>
+  <div class="mb-3">{{ form.message.label }} {{ form.message(class_='form-control') }}</div>
+  {{ form.submit(class_='btn btn-primary') }}
+</form>
+<hr>
+<h3>Meus chamados</h3>
+<ul>
+  {% for t in tickets %}
+    <li>{{ t.created_at.strftime('%Y-%m-%d') }} - <strong>{{ t.subject }}</strong> - {{ t.status }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

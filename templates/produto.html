@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <p><strong>R$ {{ '%.2f'|format(product.price) }}</strong></p>
+    <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post" class="row g-2">
+      <div class="col-md-3"><input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control"></div>
+      <div class="col-md-3"><button class="btn btn-success">Adicionar ao carrinho</button></div>
+    </form>
+    <hr>
+    <h4>Avaliações</h4>
+    {% for r in product.reviews %}
+      <div><strong>{{ r.user.name }}</strong> - {{ r.rating }}/5<br>{{ r.comment }}</div>
+      <hr>
+    {% else %}
+      <p>Nenhuma avaliação ainda.</p>
+    {% endfor %}
+    {% if current_user.is_authenticated %}
+      <form action="{{ url_for('add_review', product_id=product.id) }}" method="post">
+        {{ form.hidden_tag() }}
+        <div class="mb-2">{{ form.rating.label }} {{ form.rating() }}</div>
+        <div class="mb-2">{{ form.comment.label }} {{ form.comment(rows=3, class_='form-control') }}</div>
+        {{ form.submit(class_='btn btn-primary') }}
+      </form>
+    {% else %}
+      <p><a href="{{ url_for('login') }}">Entre</a> para avaliar.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

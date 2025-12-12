@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Loja - Início{% endblock %}
+{% block content %}
+<h1>Produtos</h1>
+<form method="get" class="row g-2">
+  <div class="col-md-6"><input name="q" class="form-control" placeholder="Buscar..." value="{{ request.args.get('q','') }}"></div>
+  <div class="col-md-3">
+    <select name="category" class="form-select">
+      <option value="">Todas categorias</option>
+      {% for c in categories %}<option value="{{ c }}" {% if request.args.get('category')==c %}selected{% endif %}>{{ c }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3"><button class="btn btn-primary">Buscar</button></div>
+</form>
+<div class="row mt-3">
+  {% for p in products %}
+  <div class="col-md-4">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ p.name }}</h5>
+        <p class="card-text">R$ {{ '%.2f'|format(p.price) }}</p>
+        <a href="{{ url_for('product_detail', product_id=p.id) }}" class="btn btn-sm btn-outline-primary">Ver</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

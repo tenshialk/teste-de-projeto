@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Cadastro</h2>
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">{{ form.name.label }} {{ form.name(class_='form-control') }}</div>
+  <div class="mb-3">{{ form.email.label }} {{ form.email(class_='form-control') }}</div>
+  <div class="mb-3">{{ form.phone.label }} {{ form.phone(class_='form-control') }}</div>
+  <div class="mb-3">{{ form.password.label }} {{ form.password(class_='form-control') }}</div>
+  <div class="mb-3">{{ form.confirm.label }} {{ form.confirm(class_='form-control') }}</div>
+  {{ form.submit(class_='btn btn-success') }}
+</form>
+{% endblock %}

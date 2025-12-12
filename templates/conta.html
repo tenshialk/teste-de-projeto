@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Minha Conta</h2>
+<p>Nome: {{ current_user.name }}</p>
+<p>Email: {{ current_user.email }}</p>
+<p><a href="{{ url_for('orders') }}">Ver histórico de pedidos</a></p>
+<p><a href="{{ url_for('support') }}">Abrir chamado de suporte</a></p>
+{% endblock %}
